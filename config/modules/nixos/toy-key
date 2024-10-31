@@ -1,0 +1,30 @@
+xkb_symbols "toy"
+{
+  // Include the basic layout
+  include "us(basic)"
+
+  // Include the level3 switch (right alt)
+  include "level3(ralt_switch)"
+
+  key <AE04> { [ 4, dollar, EuroSign ] };
+
+  key <LatQ> { [ q, Q, acircumflex, Acircumflex ] };
+  key <LatW> { [ w, W, ecircumflex, Ecircumflex ] };
+  key <LatE> { [ e, E, ecute, Ecute ] };
+  key <LatR> { [ r, R, egrave, Egrave ] };
+  key <LatY> { [ y, Y, ugrave, Ugrave ] };
+  key <LatU> { [ u, U, ucircumflex, Ucircumflex ] };
+  key <LatI> { [ i, I, icircumflex, Icircumflex ] };
+  key <LatO> { [ o, O, ocircumflex, Ocircumflex ] };
+
+  key <LatA> { [ a, A, agrave , Agrave ] };
+  key <LatJ> { [ j, J, udiaeresis, Udiaeresis ] };
+  key <LatK> { [ k, K, idiaeresis, Idiaeresis ] };
+  key <LatL> { [ l, L, odiaeresis, Odiaeresis ] };
+
+  key <LatZ> { [ z, Z, ae, AE ] };
+  key <LatC> { [ c, C, ccedilla, Ccedilla ] };
+
+ 
+
+};
