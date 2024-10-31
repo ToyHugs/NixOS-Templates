@@ -13,12 +13,18 @@
     ];
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = false; # Disable systemd-boot to use GRUB
+  boot.loader.efi.canTouchEfiVariables = true; # Don't know what this does, but it was in the example
+
 
   # Grub
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true; # Enable EFI
+    device = "nodev"; # "nodev" for efi
+    gfxmodeEfi = "1600x900";
+    theme = ./modules/nixos/grub-yorha-theme/theme.txt;
+  };
  
   # Ensure the kvm-intel module is loaded
   boot.kernelModules = [ "kvm-intel" ];
