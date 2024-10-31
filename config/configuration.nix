@@ -23,7 +23,18 @@
     efiSupport = true; # Enable EFI
     device = "nodev"; # "nodev" for efi
     gfxmodeEfi = "1600x900";
-    theme = ./modules/nixos/grub-yorha-theme/theme.txt;
+    # theme = ./modules/nixos/grub-yorha-theme/theme.txt;
+    theme = pkgs.stdenv.mkDerivation {
+      pname = "distro-grub-themes";
+      version = "3.1";
+      src = pkgs.fetchFromGitHub {
+        owner = "AdisonCavani";
+        repo = "distro-grub-themes";
+        rev = "v3.1";
+        hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+      };
+      installPhase = "cp -r customize/nixos $out";
+    };
   };
  
   # Ensure the kvm-intel module is loaded
