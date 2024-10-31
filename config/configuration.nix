@@ -63,12 +63,6 @@
   # Enable Docker & Virtualbox virtualization
   virtualisation.docker.enable = true;
 
-  # Enable VirtualBox
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-  virtualisation.virtualbox.guest.enable = true;
-  virtualisation.virtualbox.guest.x11 = true;
-
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -210,7 +204,6 @@
     docker_27
     android-studio
     tamarin-prover
-    virtualbox
     mongodb-compass
     glib
     glibc
@@ -219,6 +212,7 @@
     unzip
     gcc
     vlc
+    virtualbox
 
 
     xclip # Clipboard manager
@@ -233,7 +227,6 @@
     gnomeExtensions.calc # Calculator
     gnomeExtensions.unmess # Assign applications to workspace    
   ];
-
 
 
   environment.gnome.excludePackages = with pkgs; [
