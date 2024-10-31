@@ -215,6 +215,8 @@
     virtualbox
     arduino-ide
     obsidian
+    xournalpp
+    krita
 
     xclip # Clipboard manager
     python3Full
