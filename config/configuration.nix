@@ -213,7 +213,8 @@
     gcc
     vlc
     virtualbox
-
+    arduino-ide
+    obsidian
 
     xclip # Clipboard manager
     python3Full
