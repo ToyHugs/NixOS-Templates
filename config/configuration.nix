@@ -16,6 +16,9 @@
   boot.loader.systemd-boot.enable = false; # Disable systemd-boot to use GRUB
   boot.loader.efi.canTouchEfiVariables = true; # Don't know what this does, but it was in the example
 
+  # Auto upgrade
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
 
   # Grub
   boot.loader.grub = {
@@ -23,18 +26,22 @@
     efiSupport = true; # Enable EFI
     device = "nodev"; # "nodev" for efi
     gfxmodeEfi = "1600x900";
-    # theme = ./modules/nixos/grub-yorha-theme/theme.txt;
-    theme = pkgs.stdenv.mkDerivation {
-      pname = "distro-grub-themes";
-      version = "3.1";
-      src = pkgs.fetchFromGitHub {
-        owner = "AdisonCavani";
-        repo = "distro-grub-themes";
-        rev = "v3.1";
-        hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
-      };
-      installPhase = "cp -r customize/nixos $out";
-    };
+
+    # theme = ./modules/nixos/grub-yorha-theme/theme.txt; # Not working
+
+    # theme = pkgs.stdenv.mkDerivation { # Not working
+    #   pname = "distro-grub-themes";
+    #   version = "3.1";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "AdisonCavani";
+    #     repo = "distro-grub-themes";
+    #     rev = "v3.1";
+    #     hash = "sha256-ZcoGbbOMDDwjLhsvs77C7G7vINQnprdfI37a9ccrmPs=";
+    #   };
+    #   installPhase = "cp -r customize/nixos $out";
+    # };
+
+    # theme = pkgs.sleek-grub-theme; # Working
   };
  
   # Ensure the kvm-intel module is loaded
@@ -53,8 +60,15 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Enable Docker virtualization
+  # Enable Docker & Virtualbox virtualization
   virtualisation.docker.enable = true;
+
+  # Enable VirtualBox
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest.x11 = true;
+
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -195,6 +209,17 @@
     gnumake
     docker_27
     android-studio
+    tamarin-prover
+    virtualbox
+    mongodb-compass
+    glib
+    glibc
+    rustup
+    zip
+    unzip
+    gcc
+    vlc
+
 
     xclip # Clipboard manager
     python3Full
@@ -228,7 +253,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
