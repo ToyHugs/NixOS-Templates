@@ -1,0 +1,7 @@
+# Gitignore file for Visual Studio Code
+.vscode/
+
+# Result of VM build and launch
+result
+nixos-efi-vars.fd
+nixos.qcow2
