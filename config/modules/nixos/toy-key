@@ -10,7 +10,7 @@ xkb_symbols "toy"
 
   key <LatQ> { [ q, Q, acircumflex, Acircumflex ] };
   key <LatW> { [ w, W, ecircumflex, Ecircumflex ] };
-  key <LatE> { [ e, E, ecute, Ecute ] };
+  key <LatE> { [ e, E, eacute, Eacute ] };
   key <LatR> { [ r, R, egrave, Egrave ] };
   key <LatY> { [ y, Y, ugrave, Ugrave ] };
   key <LatU> { [ u, U, ucircumflex, Ucircumflex ] };
