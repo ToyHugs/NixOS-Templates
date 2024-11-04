@@ -107,6 +107,12 @@
    };
   };
 
+
+  # programs.dconf.profiles.user.databases = [
+  #   {
+  #     lockAll = false;
+  #   }
+  # ];
   # programs = {
   #   dconf = {
   #     profiles = {
@@ -175,6 +181,14 @@
     ];
   };
 
+  # GPG
+  # services.pcscd.enable = true;
+  # programs.gnupg.agent = {
+  #  enable = true;
+  #  enableSSHSupport = true;
+  #  pinentryPackage = pkgs.pinentry-all;
+  # };
+
   home-manager = {
     # also pass inputs to home-manager modules
     # extraSpecialArgs = { inherit inputs; };
@@ -217,7 +231,16 @@
     obsidian
     xournalpp
     krita
+    
+    # networkmanagerapplet
+    # vpnc
+    # openconnect
+    # networkmanager-vpnc
+    # gnome.networkmanager-vpnc
 
+    # Installer NH https://github.com/viperML/nh
+
+    
     xclip # Clipboard manager
     python3Full
     (python3.withPackages (ps: with ps; [ pyperclip ]))
@@ -240,11 +263,12 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
+  };
 
   # List services that you want to enable:
 

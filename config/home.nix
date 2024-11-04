@@ -84,6 +84,8 @@
     enable = true;
     userName = "toyhugs";
     userEmail = "pierre.guyot@toyhugs.fr";
+    # 551A9B321D320456
+    signing.key = "551A9B321D320456";
   };
 
 
