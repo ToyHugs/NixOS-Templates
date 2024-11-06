@@ -18,7 +18,7 @@
 
   # Auto upgrade
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
+  # system.autoUpgrade.allowReboot = true;
 
   # Grub
   boot.loader.grub = {
@@ -62,6 +62,8 @@
 
   # Enable Docker & Virtualbox virtualization
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 
 
   # Set your time zone.
@@ -174,7 +176,7 @@
   users.users.toyhugs = {
     isNormalUser = true;
     description = "ToyHugs";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "vboxusers" ];
     hashedPassword = "$7$CU..../....e5Y/VWPEmPW7neU9QZVQ1.$9LGG9i0yxhmkLeYM.EJ/KdM0QrmO3.iD.gAf9mUzTr3";
     packages = with pkgs; [
     #  thunderbird
@@ -226,11 +228,12 @@
     unzip
     gcc
     vlc
-    virtualbox
+    # virtualbox # empêche de l'utiliser en tant que Guest
     arduino-ide
     obsidian
     xournalpp
     krita
+    zig
     
     # networkmanagerapplet
     # vpnc
