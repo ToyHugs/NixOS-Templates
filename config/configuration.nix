@@ -4,6 +4,21 @@
 
 { config, pkgs, lib, ... }:
 
+let python =
+    let
+    packageOverrides = self:
+    super: {
+      opencv4 = super.opencv4.override {
+        enableGtk2 = true;
+        gtk2 = pkgs.gtk2;
+        # enableFfmpeg = true; #here is how to add ffmpeg and other compilation flags
+        # ffmpeg_3 = pkgs.ffmpeg-full;
+        };
+    };
+    in
+      pkgs.python3.override {inherit packageOverrides; self = python;};
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -176,7 +191,14 @@
   users.users.toyhugs = {
     isNormalUser = true;
     description = "ToyHugs";
-    extraGroups = [ "networkmanager" "wheel" "docker" "vboxusers" ];
+    extraGroups = [
+      "networkmanager" # general
+      "wheel" # sudo
+      "docker" # docker
+      "vboxusers" # virtualbox
+      "dialout" # ttyACM (arduino)
+      "plugdev" # platformio upload
+    ];
     hashedPassword = "$7$CU..../....e5Y/VWPEmPW7neU9QZVQ1.$9LGG9i0yxhmkLeYM.EJ/KdM0QrmO3.iD.gAf9mUzTr3";
     packages = with pkgs; [
     #  thunderbird
@@ -234,6 +256,19 @@
     xournalpp
     krita
     zig
+    theharvester # Collect informationm about email
+    jdk
+
+    platformio
+
+    dfu-util
+    nixos-firewall-tool
+
+    # OpenCV
+    # ffmpeg_7-full
+    # libsmi
+    # opencv
+
     
     # networkmanagerapplet
     # vpnc
@@ -241,12 +276,15 @@
     # networkmanager-vpnc
     # gnome.networkmanager-vpnc
 
-    # Installer NH https://github.com/viperML/nh
+
+    # Logiciel à installer / à tester
+    # Installer NH https://github.com/viperML/nh - Pour facilement installer la configuration de NixOS
+    # https://godbolt.org/ - Compiler du code C++ en ligne avec lien sur le code machine
 
     
     xclip # Clipboard manager
-    python3Full
-    (python3.withPackages (ps: with ps; [ pyperclip ]))
+    # python3Full
+    (python.withPackages (ps: with ps; [ pyperclip numpy opencv4 ]))
     (import ./modules/nixos/toypass/toypass.nix { inherit pkgs; })
 
      
@@ -255,6 +293,15 @@
     gnomeExtensions.pop-shell # Tiling window manager for GNOME
     gnomeExtensions.calc # Calculator
     gnomeExtensions.unmess # Assign applications to workspace    
+  ];
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2341", ATTR{idProduct}=="035b", MODE="0666"
+  '';
+
+  services.udev.packages = with pkgs; 
+  [ 
+    platformio-core.udev
   ];
 
 
