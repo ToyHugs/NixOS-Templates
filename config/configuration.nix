@@ -124,6 +124,22 @@ in
    };
   };
 
+  # For VM tools
+  programs.dconf.enable = true;
+
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
+  services.spice-vdagentd.enable = true;
+
 
   # programs.dconf.profiles.user.databases = [
   #   {
@@ -198,6 +214,7 @@ in
       "vboxusers" # virtualbox
       "dialout" # ttyACM (arduino)
       "plugdev" # platformio upload
+      "libvirtd" # virt-manager
     ];
     hashedPassword = "$7$CU..../....e5Y/VWPEmPW7neU9QZVQ1.$9LGG9i0yxhmkLeYM.EJ/KdM0QrmO3.iD.gAf9mUzTr3";
     packages = with pkgs; [
@@ -226,6 +243,21 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Allow unsupported system
+  # nixpkgs.config.allowUnsupportedSystem = true;
+
+  # Add MSP430 GCC to the PATH - Installer à la main
+  # environment.pathsToLink = [
+  #   "/opt/msp430-gcc/bin"
+  # ];
+  # environment.variables.PATH = "/opt/msp430-gcc/bin";
+
+  
+  nixpkgs.config.permittedInsecurePackages = [
+    "qbittorrent-4.6.4"
+  ];
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -258,11 +290,29 @@ in
     zig
     theharvester # Collect informationm about email
     jdk
+    qbittorrent
 
     platformio
 
     dfu-util
     nixos-firewall-tool
+
+    libreoffice
+
+    # VM tools
+    virt-manager
+    virt-viewer
+    spice 
+    spice-gtk
+    spice-protocol
+    win-virtio
+    win-spice
+    gnome.adwaita-icon-theme
+
+    wineWowPackages.stable
+    # winetricks # Pour améliorer la compatibilité de Wine
+
+    ant # AMIO
 
     # OpenCV
     # ffmpeg_7-full
@@ -283,7 +333,7 @@ in
 
     
     xclip # Clipboard manager
-    # python3Full
+    # python3Full # For python in general and opencv
     (python.withPackages (ps: with ps; [ pyperclip numpy opencv4 ]))
     (import ./modules/nixos/toypass/toypass.nix { inherit pkgs; })
 
@@ -326,8 +376,8 @@ in
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 5000 ];
+  networking.firewall.allowedUDPPorts = [ 5000 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
