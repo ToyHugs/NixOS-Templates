@@ -23,8 +23,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      <home-manager/nixos>
-      
+      # <home-manager/nixos>     
     ];
 
   # Bootloader
@@ -238,6 +237,13 @@ in
     };
   };
 
+  programs.nix-ld.enable = true; # Enable nix-ld
+
+  programs.appimage = { # Enable AppImage support
+    enable = true;
+    binfmt = true;
+};
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -291,6 +297,10 @@ in
     theharvester # Collect informationm about email
     jdk
     qbittorrent
+    # appimage-run # Run AppImage
+    # gdk-pixbuf-xlib # Hyneview test marche pas
+    # gdk-pixbuf # Hyneview test
+
 
     platformio
 
@@ -313,6 +323,8 @@ in
     # winetricks # Pour améliorer la compatibilité de Wine
 
     ant # AMIO
+    cyberchef # On cook ici
+    ghidra # Reverse engineering
 
     # OpenCV
     # ffmpeg_7-full
@@ -322,7 +334,9 @@ in
     
     # networkmanagerapplet
     # vpnc
-    # openconnect
+    openconnect
+    networkmanager-openconnect
+    gnome.networkmanager-openconnect
     # networkmanager-vpnc
     # gnome.networkmanager-vpnc
 
