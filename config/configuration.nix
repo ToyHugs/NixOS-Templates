@@ -23,7 +23,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # <home-manager/nixos>     
+      <home-manager/nixos>     
     ];
 
   # Bootloader
@@ -325,6 +325,8 @@ in
     ant # AMIO
     cyberchef # On cook ici
     ghidra # Reverse engineering
+    pdftk # Manipuler les pdf
+    timelimit # Challenge Rootme
 
     # OpenCV
     # ffmpeg_7-full
