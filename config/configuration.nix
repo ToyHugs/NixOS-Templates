@@ -319,6 +319,12 @@ in
     win-spice
     gnome.adwaita-icon-theme
 
+    busybox # A lot of tools in one
+    autopsy # Forensic tool
+    volatility3 # Forensic tool
+
+    steam-run # Pour lancer n'importe quoi
+
     wineWowPackages.stable
     # winetricks # Pour améliorer la compatibilité de Wine
 
@@ -350,7 +356,12 @@ in
     
     xclip # Clipboard manager
     # python3Full # For python in general and opencv
-    (python.withPackages (ps: with ps; [ pyperclip numpy opencv4 ]))
+    libevdev # For evdev
+    pkg-config # For evdev
+    linuxHeaders # For evdev
+    evdevremapkeys # For evdev
+    python312Packages.evdev python311Packages.evdev python311Packages.libevdev python312Packages.libevdev # For evdev
+    (python.withPackages (ps: with ps; [ pyperclip numpy opencv4 evdev wheel libevdev]))
     (import ./modules/nixos/toypass/toypass.nix { inherit pkgs; })
 
      
